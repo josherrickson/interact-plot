@@ -12,15 +12,43 @@ let intcoeffValue
 let xvaluesArray
 let mvaluesArray
 
-let repxvals
-let repmvals
+function computePoints(intercept,
+                       xvals,
+                       mval,
+                       xcoeff,
+                       mcoeff,
+                       intcoeff) {
 
-let plotpoints = []
+  let plotpoints = []
 
-function generatePlotPoints() {
-  // Get input elements
+  for (let i = 0; i < xvals.length; i++) {
+    plotpoints.push(
+      intercept + xcoeff*xvals[i] + mcoeff*mval + intcoeff*xvals[i]*mval
+    )
+  }
 
-  // Get values from input fields
+  return plotpoints
+}
+
+const ctx = document.getElementById('myChart').getContext('2d')
+const myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [], // Empty labels array
+    datasets: [] // Empty datasets array
+  },
+  options: {
+    devicePixelRatio: 4, // fixes blurry-on-firefox issue
+    responsive: false,
+    legend: {
+      position: 'right',
+    },
+  },
+})
+
+
+
+function updateChart() {
   interceptValue = parseFloat(interceptInput.value)
   xcoeffValue = parseFloat(xcoeffInput.value)
   mcoeffValue = parseFloat(mcoeffInput.value)
@@ -32,69 +60,25 @@ function generatePlotPoints() {
     return parseFloat(item.trim())
   })
 
-
-  plotpoints = []
-
-  for (let i = 0; i < xvaluesArray.length; i++) {
-    for (let j = 0; j < mvaluesArray.length; j++) {
-      plotpoints.push(
-        interceptValue + xcoeffValue*xvaluesArray[i] + mcoeffValue*mvaluesArray[j] +
-        intcoeffValue*xvaluesArray[i]*mvaluesArray[j]
-      )
+  myChart.data.datasets = []
+  for (let i = 0; i < mvaluesArray.length; i++) {
+    newDataset = {
+      label: `Line ${mvaluesArray[i]}`,
+      data: computePoints(interceptValue,
+                          xvaluesArray,
+                          mvaluesArray[i],
+                          xcoeffValue,
+                          mcoeffValue,
+                          intcoeffValue),
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
     }
+    console.log('Adding', mvaluesArray[i])
+    myChart.data.datasets.push(newDataset);
   }
 
-
-  repxvals = repeatArrayElements(xvaluesArray, mvaluesArray.length);
-  repmvals = Array.from({ length: xvaluesArray.length }, () => mvaluesArray).flat()
-
-  console.log('x vals:', repxvals)
-  console.log('m vals:', repmvals)
-  console.log('plotpoints:', plotpoints)
-
-}
-
-function repeatArrayElements(arr, repeatCount) {
-  let repeatedArray = []
-  arr.forEach(element => {
-    for (let i = 0; i < repeatCount; i++) {
-      repeatedArray.push(element)
-    }
-  })
-  return repeatedArray
-}
-
-
-// Evaluate when page loads
-document.addEventListener('DOMContentLoaded', generatePlotPoints)
-
-// Track any changes in input
-interceptInput.addEventListener('input', generatePlotPoints)
-xcoeffInput.addEventListener('input', generatePlotPoints)
-mcoeffInput.addEventListener('input', generatePlotPoints)
-intcoeffInput.addEventListener('input', generatePlotPoints)
-xvaluesInput.addEventListener('input', generatePlotPoints)
-mvaluesInput.addEventListener('input', generatePlotPoints)
-
-
-const ctx = document.getElementById('myChart').getContext('2d')
-const myChart = new Chart(ctx, {
-  type: 'scatter',
-  data: {
-    labels: repxvals,
-    datasets: [{
-      data: plotpoints,
-    }],
-  },
-  options: {
-    devicePixelRatio: 4, // fixes blurry-on-firefox issue
-    responsive: false,
-  },
-})
-
-function updateChart() {
-  myChart.data.datasets[0].data = plotpoints
-  myChart.data.labels = repxvals
+  myChart.data.labels = xvaluesArray
   myChart.update()
 }
 
