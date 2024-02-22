@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interaction Plot Generator</title>
+    <link rel="stylesheet" href="https://errickson.net/style.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>Interaction Plot Generator</h1>
+    <div id="sidebar-div">
+      <div id="sidebar-div-content">
+        <div class="input-container">
+          <label for="intercept">Intercept:</label>
+          <input
+            type = "text"
+            id = "intercept"
+            name = "intercept"
+            class = "form-control"
+            value = "-4"
+            onChange = "generatePlotPoints()"
+            >
+        </div>
+        <div class="input-container">
+          <label for="xcoeff">slope on X:</label>
+          <input
+            type = "text"
+            id = "xcoeff"
+            name = "xcoeff"
+            class = "form-control"
+            value = "1.2"
+            onChange = "generatePlotPoints()"
+            >
+        </div>
+        <div class="input-container">
+          <label for="mcoeff">slope on M:</label>
+          <input
+            type = "text"
+            id = "mcoeff"
+            name = "mcoeff"
+            class = "form-control"
+            value = "2.3"
+            onChange = "makeDataTableElements()"
+            >
+        </div>
+        <div class="input-container">
+          <label for="intcoeff">Interaction:</label>
+          <input
+            type = "text"
+            id = "intcoeff"
+            name = "intcoeff"
+            class = "form-control"
+            value = "-.5"
+            onChange = "generatePlotPoints()"
+            >
+        </div>
+        <hr>
+        <div class="input-container">
+          <label for="xvalues">Values for X:</label>
+          <input
+            type = "text"
+            id = "xvalues"
+            name = "xvalues"
+            class = "form-control"
+            value = "2, 5, 10"
+            onChange = "generatePlotPoints()"
+          >
+        </div>
+        <div class="input-container">
+          <label for="mvalues">Values for Moderator:</label>
+          <input
+            type = "text"
+            id = "mvalues"
+            name = "mvalues"
+            class = "form-control"
+            value = "17, 25, 36"
+            onChange = "generatePlotPoints()"
+          >
+        </div>
+      </div>
+    </div>
+    <div id="results-div">
+      <div>
+        <canvas id="myChart" width="400" height="300"></canvas>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
