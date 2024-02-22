@@ -46,7 +46,29 @@ const myChart = new Chart(ctx, {
   },
 })
 
-
+// Colors for plotting. If it goes beyond 20, it'll just be grey
+const colors = [
+    'rgba(255, 99, 132, 1)',     // Red
+    'rgba(54, 162, 235, 1)',      // Blue
+    'rgba(255, 206, 86, 1)',      // Yellow
+    'rgba(75, 192, 192, 1)',      // Teal
+    'rgba(153, 102, 255, 1)',     // Purple
+    'rgba(255, 159, 64, 1)',      // Orange
+    'rgba(51, 204, 51, 1)',       // Green
+    'rgba(255, 0, 255, 1)',       // Magenta
+    'rgba(0, 255, 255, 1)',       // Cyan
+    'rgba(128, 128, 128, 1)',     // Gray
+    'rgba(255, 128, 0, 1)',       // Dark Orange
+    'rgba(0, 153, 0, 1)',         // Dark Green
+    'rgba(204, 0, 204, 1)',       // Dark Magenta
+    'rgba(0, 204, 204, 1)',       // Dark Cyan
+    'rgba(102, 51, 0, 1)',        // Brown
+    'rgba(255, 102, 102, 1)',     // Light Red
+    'rgba(102, 153, 255, 1)',     // Light Blue
+    'rgba(255, 204, 102, 1)',     // Light Orange
+    'rgba(204, 255, 102, 1)',     // Light Green
+    'rgba(255, 102, 255, 1)'      // Light Magenta
+];
 
 function updateChart() {
   interceptValue = parseFloat(interceptInput.value)
@@ -71,7 +93,7 @@ function updateChart() {
                           mcoeffValue,
                           intcoeffValue),
       fill: false,
-      borderColor: 'rgb(75, 192, 192)',
+      borderColor: colors[i],
       tension: 0.1
     }
     console.log('Adding', mvaluesArray[i])
