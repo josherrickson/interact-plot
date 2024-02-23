@@ -38,7 +38,7 @@
             their estimated interaction term.
           </p>
           <div class="input-container">
-            <label for="intercept" class="label">Intercept:</label>
+            <label for="intercept" class="label">Estimated Intercept:</label>
             <input
               type = "text"
               id = "intercept"
@@ -48,7 +48,7 @@
             >
           </div>
           <div class="input-container">
-            <label for="xcoeff">slope on X:</label>
+            <label for="xcoeff">Estimated Slope on X:</label>
             <input
               type = "text"
               id = "xcoeff"
@@ -58,7 +58,7 @@
             >
           </div>
           <div class="input-container">
-            <label for="mcoeff">slope on M:</label>
+            <label for="mcoeff">Estimated Slope on M:</label>
             <input
               type = "text"
               id = "mcoeff"
@@ -68,7 +68,7 @@
             >
           </div>
           <div class="input-container">
-            <label for="intcoeff">Interaction:</label>
+            <label for="intcoeff">Estimated Interaction:</label>
             <input
               type = "text"
               id = "intcoeff"
@@ -77,24 +77,28 @@
               value = "-.5"
             >
           </div>
-          <p>
-            If your model has no additional covariates, you can use the
-            intercept/constant reported from the model as the <strong>Intercept</strong>.
-            However, if you have covariates, you likely want to use an intercept
-            at some "average" value of those covariates. One way to obtain this
-            is to center (at their mean, or some specific meaningful value) each
-            of the other covariates, then use the reported intercept/constant.
-          </p>
-          <p>
-            Alternatively, you can manually compute an intercept. Say your model
-            has a single other predictor <strong>Z</strong>. Let <strong>Z*</strong>
-            represent some "average" value of <strong>Z</strong> (again, this
-            can be the actual mean, or a representative value; if <strong>Z</strong>
-            was IQ, perhaps <strong>Z*</strong> being 100 would make sense). Let
-            &alpha; be the reported intercept, and let &beta; be the estimated
-            coefficient on <strong>Z</strong>. You would then use &alpha; +
-            &beta;<strong>Z*</strong> as the <strong>Intercept</strong>.
-          </p>
+          <details>
+            <summary>Additional details regarding <strong>Intercept</strong></summary>
+            <p>
+              If your model has no additional covariates, you can use the
+              intercept/constant reported from the model as the <strong>Intercept</strong>.
+              However, if you have covariates, you likely want to use an
+              intercept at some "average" value of those covariates. One way to
+              obtain this is to center (at their mean, or some specific
+              meaningful value) each of the other covariates, then use the
+              reported intercept/constant.
+              <br><br>
+              Alternatively, you can manually compute an intercept. Say your
+              model has a single other predictor <strong>Z</strong>. Let <strong>Z*</strong>
+              represent some "average" value of <strong>Z</strong> (again, this
+              can be the actual mean, or a representative value; if <strong>Z</strong>
+              was IQ, perhaps <strong>Z*</strong> being 100 would make sense,
+              regardless of the actual sample mean of <strong>Z</strong>).
+              Let &alpha; be the reported intercept, and let &beta; be the
+              estimated coefficient on <strong>Z</strong>. You would then use
+              &alpha; + &beta;<strong>Z*</strong> as the <strong>Intercept</strong>.
+            </p>
+          </details>
           <hr>
           <p>
             Enter at least 2 values for <strong>X</strong>. Only two points are

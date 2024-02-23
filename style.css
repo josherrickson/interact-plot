@@ -115,16 +115,14 @@ label {
     box-sizing: border-box;
 }
 
+details {
 
-#toggle-checkbox {
-  display: none; /* Hide the checkbox */
 }
 
-#toggle-paragraph {
-  display: none; /* Hide the paragraph initially */
+details > summary {
 }
 
-/* When the checkbox is checked, display the paragraph */
-#toggle-checkbox:checked + #toggle-paragraph {
-  display: block;
+details > p {
+    border-radius: 2px 2px 2px 2px;
+  background-color: #ddd;
 }
