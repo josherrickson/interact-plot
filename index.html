@@ -9,10 +9,27 @@
   </head>
   <body>
     <h1>Interaction Plot Generator</h1>
+    <p class="frontmatter">
+      This tool can be used to draw an interaction plot from a regression model.
+      It is in no way a replacement for tools such as Stata's
+      <a href="https://www.stata.com/manuals/rmargins.pdf"><code>margins</code></a>/
+      <a href="https://www.stata.com/manuals/rmarginsplot.pdf"><code>marginsplot</code></a>
+      or any of the various R packages (e.g.
+      <a href="https://cran.r-project.org/package=emmeans"><strong>emmeans</strong></a>,
+      <a href="https://cran.r-project.org/package=interactions"><strong>interactions</strong></a>,
+      or <a href="https://cran.r-project.org/package=marginaleffects"><strong>marginaleffects</strong></a>),
+      but may be useful if using software that does not support easy generation
+      of such plots.
+    </p>
+    <p class="frontmatter">
+      Currently this tool supports only continuous/continuous interactions (or
+      binary, if you code it as 0/1), and only linear regression models. I hope
+      to add support for categorical interactions as well as non-linear models.
+    </p>
     <div id="container">
       <div id="sidebar-div">
         <div id="sidebar-div-content">
-          <p>
+          <p style="margin-block-start: 0;">
             For each of the below, enter the estimated coefficient from the
             model. The <strong>Intercept</strong> refers to the actual
             intercept/constant (or see below), <strong>X</strong> and
@@ -60,6 +77,24 @@
               value = "-.5"
             >
           </div>
+          <p>
+            If your model has no additional covariates, you can use the
+            intercept/constant reported from the model as the <strong>Intercept</strong>.
+            However, if you have covariates, you likely want to use an intercept
+            at some "average" value of those covariates. One way to obtain this
+            is to center (at their mean, or some specific meaningful value) each
+            of the other covariates, then use the reported intercept/constant.
+          </p>
+          <p>
+            Alternatively, you can manually compute an intercept. Say your model
+            has a single other predictor <strong>Z</strong>. Let <strong>Z*</strong>
+            represent some "average" value of <strong>Z</strong> (again, this
+            can be the actual mean, or a representative value; if <strong>Z</strong>
+            was IQ, perhaps <strong>Z*</strong> being 100 would make sense). Let
+            &alpha; be the reported intercept, and let &beta; be the estimated
+            coefficient on <strong>Z</strong>. You would then use &alpha; +
+            &beta;<strong>Z*</strong> as the <strong>Intercept</strong>.
+          </p>
           <hr>
           <p>
             Enter at least 2 values for <strong>X</strong>. Only two points are
@@ -73,7 +108,7 @@
               id = "xvalues"
               name = "xvalues"
               class = "form-control"
-              value = "2, 5, 10"
+              value = "2, 10"
             >
           </div>
           <p>
@@ -90,7 +125,7 @@
               id = "mvalues"
               name = "mvalues"
               class = "form-control"
-              value = "17, 25, 36"
+              value = "17.2, 25.6, 36.1"
             >
           </div>
           <hr>
@@ -99,7 +134,6 @@
               type = "checkbox"
               value = "drawpoints"
               id = "drawpoints"
-              checked
             >
             Draw individual points?
           </label>

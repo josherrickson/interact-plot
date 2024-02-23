@@ -120,6 +120,13 @@ function updateChart() {
         .map(xtmp => parseFloat(xtmp.trim()))
         .filter(number => !isNaN(number))
   )]
+  if (xvaluesArray.length < 2) {
+    myChart.data.datasets = []
+    myChart.update()
+    myChart.options.plugins.legend.title.display = false;
+    myChart.options.plugins.legend.title.text = '';
+    return
+  }
   let mtmp = mvaluesInput.value.split(',')
   mvaluesArray = [...new Set(
     mtmp
