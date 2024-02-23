@@ -4,6 +4,7 @@ const mcoeffInput = document.getElementById('mcoeff')
 const intcoeffInput = document.getElementById('intcoeff')
 const xvaluesInput = document.getElementById('xvalues')
 const mvaluesInput = document.getElementById('mvalues')
+const drawpointsInput = document.getElementById('drawpoints')
 
 let interceptValue
 let xcoeffValue
@@ -21,30 +22,18 @@ function computePoints(intercept,
 
   let plotpoints = []
 
-  for (let i = 0; i < xvals.length; i++) {
-    plotpoints.push(
-      intercept + xcoeff*xvals[i] + mcoeff*mval + intcoeff*xvals[i]*mval
-    )
+  if (Array.isArray(xvals)) {
+    for (let i = 0; i < xvals.length; i++) {
+      plotpoints.push(
+        intercept + xcoeff*xvals[i] + mcoeff*mval + intcoeff*xvals[i]*mval
+      )
+    }
+  } else {
+    plotpoints = intercept + xcoeff*xvals + mcoeff*mval + intcoeff*xvals*mval
   }
 
   return plotpoints
 }
-
-const ctx = document.getElementById('myChart').getContext('2d')
-const myChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: [], // Empty labels array
-    datasets: [] // Empty datasets array
-  },
-  options: {
-    devicePixelRatio: 4, // fixes blurry-on-firefox issue
-    responsive: false,
-    legend: {
-      position: 'right',
-    },
-  },
-})
 
 // Colors for plotting. If it goes beyond 20, it'll just be grey
 const colors = [
@@ -70,22 +59,64 @@ const colors = [
     'rgba(255, 102, 255, 1)'      // Light Magenta
 ];
 
+const ctx = document.getElementById('myChart').getContext('2d')
+const myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: [], // Empty labels array
+    datasets: [] // Empty datasets array
+  },
+  options: {
+    devicePixelRatio: 4, // fixes blurry-on-firefox issue
+    responsive: false,
+    maintainAspectRatio: true,
+    legend: {
+      position: 'right',
+      title: {
+        display: true,
+        text: 'Legend Title',
+      },
+    },
+    scales: {
+      x: {
+        type: 'linear', // Specify linear scale for x-axis
+        position: 'bottom' // Position x-axis at the bottom
+      },
+      y: {
+        type: 'linear', // Specify linear scale for y-axis
+        position: 'left' // Position y-axis on the left
+      }
+    }
+  },
+})
+
+
 function updateChart() {
   interceptValue = parseFloat(interceptInput.value)
+  interceptValue = !isNaN(interceptValue) ? interceptValue : 0
   xcoeffValue = parseFloat(xcoeffInput.value)
+  xcoeffValue = !isNaN(xcoeffValue) ? xcoeffValue : 0
   mcoeffValue = parseFloat(mcoeffInput.value)
+  mcoeffValue = !isNaN(mcoeffValue) ? mcoeffValue : 0
   intcoeffValue = parseFloat(intcoeffInput.value)
-  xvaluesArray = xvaluesInput.value.split(',').map(function(item) {
-    return parseFloat(item.trim())
-  })
-  mvaluesArray = mvaluesInput.value.split(',').map(function(item) {
-    return parseFloat(item.trim())
-  })
+  intcoeffValue = !isNaN(intcoeffValue) ? intcoeffValue : 0
+  let xtmp = xvaluesInput.value.split(',')
+  xvaluesArray = [...new Set(
+    xtmp
+        .map(xtmp => parseFloat(xtmp.trim()))
+        .filter(number => !isNaN(number))
+  )]
+  let mtmp = mvaluesInput.value.split(',')
+  mvaluesArray = [...new Set(
+    mtmp
+        .map(mtmp => parseFloat(mtmp.trim()))
+        .filter(number => !isNaN(number))
+  )]
 
   myChart.data.datasets = []
   for (let i = 0; i < mvaluesArray.length; i++) {
     newDataset = {
-      label: `Line ${mvaluesArray[i]}`,
+      label: `${mvaluesArray[i]}`,
       data: computePoints(interceptValue,
                           xvaluesArray,
                           mvaluesArray[i],
@@ -94,13 +125,17 @@ function updateChart() {
                           intcoeffValue),
       fill: false,
       borderColor: colors[i],
+      backgroundColor: colors[i],
+      pointStyle: drawpointsInput.checked ? 'circle' : false,
       tension: 0.1
     }
-    console.log('Adding', mvaluesArray[i])
     myChart.data.datasets.push(newDataset);
   }
 
   myChart.data.labels = xvaluesArray
+  myChart.options.plugins.legend.position = 'right';
+  myChart.options.plugins.legend.title.text = 'Moderator';
+  myChart.options.plugins.legend.title.display = true;
   myChart.update()
 }
 
@@ -111,3 +146,4 @@ mcoeffInput.addEventListener('input', updateChart)
 intcoeffInput.addEventListener('input', updateChart)
 xvaluesInput.addEventListener('input', updateChart)
 mvaluesInput.addEventListener('input', updateChart)
+drawpointsInput.addEventListener('input', updateChart)

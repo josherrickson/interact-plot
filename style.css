@@ -27,66 +27,6 @@ h1 {
   line-height: 1.1;
   color: inherit;
 }
-
-table {
-  table-layout: fixed;
-  width: auto;
-  max-width: 60%;
-  margin-left: 5%;
-  border-collapse: collapse;
-  border: none;
-}
-
-thead th:nth-child(1) {
-  width: 70px;
-}
-thead th:nth-child(2) {
-  width: 70px;
-}
-thead th:nth-child(3) {
-  width: 70px;
-}
-thead th:nth-child(4) {
-  width: 120px;
-}
-thead th:nth-child(4) {
-  width: 120px;
-}
-
-tr {
-  border-bottom: 1px solid #ccc;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: none;
-  padding: 5px;
-}
-
-tr td:nth-child(1) {
-  text-align: center;
-}
-tr td:nth-child(2) {
-  text-align: center;
-}
-tr td:nth-child(3) {
-  text-align: center;
-}
-tr td:nth-child(4) {
-  text-align: center;
-}
-
-.hoverTable tr:not(:first-child):hover {
-  background-color: #e1e1e1;
-}
-
-@media (prefers-color-scheme: dark) {
-    .hoverTable tr:not(:first-child):hover {
-        background-color: #e1e1e1;
-        color: rgb(75, 75, 75);
-    }
-}
-
 #sidebar-div {
   float: left;
   width: 33%;
@@ -168,4 +108,18 @@ label {
     width: 50%;
     padding: 5px;
     box-sizing: border-box;
+}
+
+
+#toggle-checkbox {
+  display: none; /* Hide the checkbox */
+}
+
+#toggle-paragraph {
+  display: none; /* Hide the paragraph initially */
+}
+
+/* When the checkbox is checked, display the paragraph */
+#toggle-checkbox:checked + #toggle-paragraph {
+  display: block;
 }
