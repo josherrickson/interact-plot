@@ -64,7 +64,7 @@ const myChart = new Chart(ctx, {
   },
   options: {
     devicePixelRatio: 4, // fixes blurry-on-firefox issue
-    responsive: false,
+    responsive: true,
     maintainAspectRatio: true,
     legend: {
       position: 'right',
