@@ -79,12 +79,26 @@ const myChart = new Chart(ctx, {
     },
     scales: {
       x: {
-        type: 'linear', // Specify linear scale for x-axis
-        position: 'bottom' // Position x-axis at the bottom
+        type: 'linear',
+        position: 'bottom',
+        title: {
+          display: true,
+          text: 'X',
+          font: {
+            size: 20
+          }
+        },
       },
       y: {
-        type: 'linear', // Specify linear scale for y-axis
-        position: 'left' // Position y-axis on the left
+        type: 'linear',
+        position: 'left',
+        title: {
+          display: true,
+          text: 'Ŷ',
+          font: {
+            size: 20
+          }
+        },
       }
     }
   },

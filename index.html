@@ -12,6 +12,14 @@
     <div id="container">
       <div id="sidebar-div">
         <div id="sidebar-div-content">
+          <p>
+            For each of the below, enter the estimated coefficient from the
+            model. The <strong>Intercept</strong> refers to the actual
+            intercept/constant (or see below), <strong>X</strong> and
+            <strong>M</strong> refer to the variable of interest and the
+            moderator respectively, and the <strong>Interaction</strong> to
+            their estimated interaction term.
+          </p>
           <div class="input-container">
             <label for="intercept" class="label">Intercept:</label>
             <input
@@ -53,8 +61,13 @@
             >
           </div>
           <hr>
-          <div class="input-container">
-            <label for="xvalues">Values for X:</label>
+          <p>
+            Enter at least 2 values for <strong>X</strong>. Only two points are
+            required to draw a line in the linear case, though more can be added
+            if desired.
+          </p>
+          <div class="input-container-full-line">
+            <label for="xvalues">Values for X:</label><br>
             <input
               type = "text"
               id = "xvalues"
@@ -63,8 +76,15 @@
               value = "2, 5, 10"
             >
           </div>
-          <div class="input-container">
-            <label for="mvalues">Values for Moderator:</label>
+          <p>
+            For each value of the moderator here, a separate line will be drawn.
+            You can enter values such as the mean and +/- 1 standard deviation,
+            or you can choose several meaningful values (e.g. if the moderator
+            is age, perhaps 21, 40 and 65 as legal age, middle age, retirement
+            age). Adding too many values will make the plot very messy.
+          </p>
+          <div class="input-container-full-line">
+            <label for="mvalues">Values for Moderator:</label><br>
             <input
               type = "text"
               id = "mvalues"
