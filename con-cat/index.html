@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interaction Plot Generator</title>
+    <link rel="stylesheet" href="https://errickson.net/style.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>
+      Interaction Plot Generator:<br>
+      Continuous <strong>X</strong>, Categorical Moderator
+    </h1>
+    <div id="container">
+      <div id="sidebar-div">
+        <div id="sidebar-div-content">
+          <p style="margin-block-start: 0;">
+            For each of the below, enter the estimated coefficient from the
+            model. The <strong>Intercept</strong> refers to the actual
+            intercept/constant (or see below), <strong>X</strong> and
+            <strong>M</strong> refer to the variable of interest and the
+            moderator respectively, and the <strong>Interaction</strong> to
+            their estimated interaction term.
+          </p>
+          <details>
+            <summary>
+              Additional details regarding <strong>Intercept</strong>
+            </summary>
+            <p>
+              If your model has no additional covariates, you can use the
+              intercept/constant reported from the model as the
+              <strong>Intercept</strong>. However, if you have covariates, you
+              likely want to use an intercept at some "average" value of those
+              covariates. One way to obtain this is to center (at their mean, or
+              some specific meaningful value) each of the other covariates, then
+              use the reported intercept/constant.
+              <br><br>
+              Alternatively, you can manually compute an intercept. Say your
+              model has a single other predictor <strong>Z</strong>. Let
+              <strong>Z*</strong> represent some "average" value of
+              <strong>Z</strong> (again, this can be the actual mean, or a
+              representative value; if <strong>Z</strong>
+              was IQ, perhaps <strong>Z*</strong> being 100 would make sense,
+              regardless of the actual sample mean of <strong>Z</strong>).
+              Let &alpha; be the reported intercept, and let &beta; be the
+              estimated coefficient on <strong>Z</strong>. You would then use
+              &alpha; + &beta;<strong>Z*</strong> as the
+              <strong>Intercept</strong>.
+            </p>
+          </details>
+          <div class="input-container">
+            <label for="intercept" class="label">Estimated Intercept:</label>
+            <input
+              type="text"
+              id="intercept"
+              name="intercept"
+              class="form-control"
+              value="3.1"
+            >
+          </div>
+          <div class="input-container">
+            <label for="xcoeff">Estimated Slope on X:</label>
+            <input
+              type="text"
+              id="xcoeff"
+              name="xcoeff"
+              class="form-control"
+              value="0.2"
+            >
+          </div>
+          <details open>
+            <summary>Details on entering Moderator coefficients</summary>
+            <p>
+              For each of the following, enter a comma separated list of the
+              estimated coefficients on the levels of the categorical varible,
+              and the interaction terms corresponding to the levels. The
+              ordering needs to be the same in both.
+              <br><br>
+              Specifically, the first entered term here corresponds to the
+              <em>second</em> level of the moderator category; the first level
+              does not get a coefficient.
+            </p>
+          </details>
+
+          <div class="input-container">
+            <label for="mcoeff">Estimated Coefficients on M:</label>
+            <input
+              type="text"
+              id="mcoeff"
+              name="mcoeff"
+              class="form-control"
+              value="0.4, -2.3, 1.1"
+            >
+          </div>
+          <div class="input-container">
+            <label for="intcoeff">Estimated Interactions:</label>
+            <input
+              type="text"
+              id="intcoeff"
+              name="intcoeff"
+              class="form-control"
+              value="-0.2, 0.5, 1.8"
+            >
+          </div>
+          <hr>
+          <p>
+            Enter at least 2 values for <strong>X</strong>. Only two points are
+            required to draw a line in the linear case, though more can be added
+            if desired.
+          </p>
+          <div class="input-container-full-line">
+            <label for="xvalues">Values for X:</label><br>
+            <input
+              type="text"
+              id="xvalues"
+              name="xvalues"
+              class="form-control"
+              value="-2, 8"
+            >
+          </div>
+          <hr>
+            <input
+              type="checkbox"
+              value="drawpoints"
+              id="drawpoints"
+            >
+          <label for="drawpoints">Draw individual points?</label>
+        </div>
+      </div>
+      <div id="results-div">
+        <div style="position: relative; height:90vh; width:65vw">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
